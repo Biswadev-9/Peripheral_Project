@@ -20,6 +20,16 @@ A complete PHP/MySQL full-stack application for managing computer laboratory per
 
 You can also import `database/schema.sql` manually through phpMyAdmin, then run `C:\xampp\php\php.exe database\seed_products.php` and `C:\xampp\php\php.exe database\product_image_assets.php` from this folder to load the full product catalog and local product images.
 
+## Hosting Notes
+
+The app now detects its base URL automatically. It works whether you host it at a domain root, such as `https://example.com`, or inside a folder, such as `https://example.com/exam`.
+
+If images or CSS look broken after uploading to hosting:
+
+1. Upload the full `assets` folder.
+2. Re-import the latest `database/schema.sql`, or run `database/product_image_assets.php` locally before exporting your database.
+3. Clear your browser cache.
+
 ## Demo Accounts
 
 - Admin: `admin@example.com` / `admin123`

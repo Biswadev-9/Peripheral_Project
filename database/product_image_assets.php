@@ -1,8 +1,9 @@
 <?php
 declare(strict_types=1);
 
-function generate_product_image_assets(PDO $pdo, string $appUrl = '/exam', ?string $projectRoot = null): void
+function generate_product_image_assets(PDO $pdo, ?string $appUrl = null, ?string $projectRoot = null): void
 {
+    $appUrl ??= defined('APP_URL') ? APP_URL : detect_image_asset_app_url();
     $projectRoot ??= dirname(__DIR__);
     $outputDir = $projectRoot . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'products';
     if (!is_dir($outputDir)) {
@@ -27,6 +28,20 @@ function generate_product_image_assets(PDO $pdo, string $appUrl = '/exam', ?stri
         $url = rtrim($appUrl, '/') . '/assets/images/products/' . $fileName;
         $update->execute([$url, $url, $product['slug']]);
     }
+}
+
+function detect_image_asset_app_url(): string
+{
+    $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+    $scriptDir = $scriptDir === '/' || $scriptDir === '.' ? '' : rtrim($scriptDir, '/');
+
+    foreach (['/admin', '/api', '/auth', '/cart', '/checkout', '/database', '/orders'] as $section) {
+        if (str_ends_with($scriptDir, $section)) {
+            return substr($scriptDir, 0, -strlen($section)) ?: '';
+        }
+    }
+
+    return $scriptDir;
 }
 
 function build_product_svg(array $product): string

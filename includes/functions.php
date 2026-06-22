@@ -8,7 +8,24 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once __DIR__ . '/../config/database.php';
 
 const APP_NAME = 'Peripheral Inventory Management System';
-const APP_URL = '/exam';
+
+if (!defined('APP_URL')) {
+    define('APP_URL', detect_app_url());
+}
+
+function detect_app_url(): string
+{
+    $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? ''));
+    $scriptDir = $scriptDir === '/' || $scriptDir === '.' ? '' : rtrim($scriptDir, '/');
+
+    foreach (['/admin', '/api', '/auth', '/cart', '/checkout', '/orders'] as $section) {
+        if (str_ends_with($scriptDir, $section)) {
+            return substr($scriptDir, 0, -strlen($section)) ?: '';
+        }
+    }
+
+    return $scriptDir;
+}
 
 function db(): PDO
 {
@@ -124,10 +141,25 @@ function slugify(string $value): string
 function product_image(?string $imageUrl): string
 {
     if ($imageUrl) {
-        return $imageUrl;
+        return normalize_local_url($imageUrl);
     }
 
     return 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80';
+}
+
+function normalize_local_url(string $path): string
+{
+    if (preg_match('#^(https?:)?//#i', $path) === 1 || str_starts_with($path, 'data:')) {
+        return $path;
+    }
+
+    $path = str_replace('\\', '/', $path);
+
+    if (preg_match('#/(assets|uploads)/(.+)$#', $path, $matches) === 1) {
+        return url($matches[1] . '/' . $matches[2]);
+    }
+
+    return url($path);
 }
 
 function get_categories(?int $limit = null): array

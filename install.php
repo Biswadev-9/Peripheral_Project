@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require_once __DIR__ . '/database/seed_products.php';
         seed_extra_products($pdo);
         require_once __DIR__ . '/database/product_image_assets.php';
-        generate_product_image_assets($pdo);
+        generate_product_image_assets($pdo, '');
         $message = 'Database installed successfully. You can now open the application.';
     } catch (Throwable $exception) {
         $error = $exception->getMessage();
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if ($error): ?><div class="alert alert-danger"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></div><?php endif; ?>
         <form method="post" class="d-flex gap-2">
             <button class="btn btn-primary" type="submit">Install Database</button>
-            <a class="btn btn-outline-primary" href="/exam/index.php">Open App</a>
+            <a class="btn btn-outline-primary" href="index.php">Open App</a>
         </form>
     </main>
 </body>
