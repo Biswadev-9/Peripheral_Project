@@ -142,10 +142,6 @@ function product_image(?string $imageUrl): string
 {
     if ($imageUrl) {
         $localFile = local_public_file($imageUrl);
-        if ($localFile && is_file($localFile) && strtolower(pathinfo($localFile, PATHINFO_EXTENSION)) === 'svg') {
-            return svg_data_uri(file_get_contents($localFile) ?: '');
-        }
-
         if ($localFile && !is_file($localFile)) {
             return fallback_product_image($imageUrl);
         }
