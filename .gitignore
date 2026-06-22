@@ -1,0 +1,24 @@
+.DS_Store
+Thumbs.db
+
+# Local environment files
+.env
+.env.*
+
+# Logs and temporary files
+*.log
+*.tmp
+*.cache
+
+# Dependencies or generated caches
+vendor/
+node_modules/
+
+# Local IDE settings
+.idea/
+.vscode/
+
+# XAMPP/runtime uploads can contain user-generated files.
+# Keep the folder available but avoid committing uploaded runtime content.
+uploads/*
+!uploads/.gitkeep

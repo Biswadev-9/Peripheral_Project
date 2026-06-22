@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650" viewBox="0 0 900 650" role="img" aria-label="Laptop Stand product image">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#fce7f3"/>
+    </linearGradient>
+    <linearGradient id="device" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#64748b"/>
+      <stop offset="100%" stop-color="#db2777"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#0f172a" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="900" height="650" rx="44" fill="url(#bg)"/>
+  <circle cx="745" cy="95" r="110" fill="#ffffff" opacity="0.16"/>
+  <circle cx="90" cy="570" r="150" fill="#ffffff" opacity="0.12"/>
+  <rect x="58" y="54" width="172" height="42" rx="21" fill="#ffffff" opacity="0.94"/>
+  <text x="86" y="82" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="800" fill="#1e293b">Accessories</text>
+  <g transform="translate(542 58)">
+    <rect width="270" height="74" rx="24" fill="#ffffff" opacity="0.92"/>
+    <circle cx="42" cy="37" r="22" fill="#64748b"/>
+    <text x="42" y="44" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="900" fill="#ffffff">RD</text>
+    <text x="78" y="34" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="900" fill="#0f172a">Rain Design</text>
+    <text x="78" y="57" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="700" fill="#64748b">mStand</text>
+  </g>
+  <g filter="url(#shadow)">
+    <g transform="translate(236 162)"><rect x="0" y="118" width="430" height="210" rx="44" fill="url(#device)"/><rect x="70" y="0" width="290" height="168" rx="36" fill="#fff" opacity=".9"/><rect x="110" y="38" width="210" height="28" rx="14" fill="url(#device)" opacity=".7"/><rect x="110" y="90" width="150" height="28" rx="14" fill="url(#device)" opacity=".48"/></g>
+  </g>
+  <g transform="translate(64 468)">
+    <rect width="772" height="120" rx="30" fill="#ffffff" opacity="0.95"/>
+    <text x="32" y="48" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="900" fill="#0f172a">Laptop Stand</text>
+    <text x="32" y="84" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#64748b">Rain Design mStand | Accessory</text>
+  </g>
+</svg>
