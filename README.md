@@ -22,13 +22,14 @@ You can also import `database/schema.sql` manually through phpMyAdmin, then run 
 
 ## Hosting Notes
 
-The app now detects its base URL automatically. It works whether you host it at a domain root, such as `https://example.com`, or inside a folder, such as `https://example.com/exam`.
+The app detects its base URL automatically. It works whether you host it at a domain root, such as `https://example.com`, or inside a folder, such as `https://example.com/exam`.
 
 If images or CSS look broken after uploading to hosting:
 
-1. Upload the full `assets` folder.
-2. Re-import the latest `database/schema.sql`, or run `database/product_image_assets.php` locally before exporting your database.
-3. Clear your browser cache.
+1. Upload the full `assets` folder, including `assets/images/products`.
+2. Upload `.htaccess`.
+3. Re-import the latest `database/schema.sql`, or run `database/product_image_assets.php` locally before exporting your database.
+4. Clear your browser cache.
 
 ## Demo Accounts
 
