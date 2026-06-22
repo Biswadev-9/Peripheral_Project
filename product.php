@@ -13,7 +13,7 @@ $reviewsStmt = db()->prepare('SELECT r.*, u.name FROM reviews r LEFT JOIN users 
 $reviewsStmt->execute([$product['id']]);
 $reviews = $reviewsStmt->fetchAll();
 $mainImage = product_image($product['image_url']);
-$galleryItems = json_decode($product['gallery'] ?? '[]', true) ?: [];
+$galleryItems = array_map('product_image', json_decode($product['gallery'] ?? '[]', true) ?: []);
 $gallery = array_values(array_unique(array_filter(array_merge([$mainImage], $galleryItems))));
 $specs = json_decode($product['specifications'] ?? '{}', true) ?: [];
 $pageTitle = $product['name'] . ' | Peripheral IMS';

@@ -141,10 +141,19 @@ function slugify(string $value): string
 function product_image(?string $imageUrl): string
 {
     if ($imageUrl) {
+        $localFile = local_public_file($imageUrl);
+        if ($localFile && is_file($localFile) && strtolower(pathinfo($localFile, PATHINFO_EXTENSION)) === 'svg') {
+            return svg_data_uri(file_get_contents($localFile) ?: '');
+        }
+
+        if ($localFile && !is_file($localFile)) {
+            return fallback_product_image($imageUrl);
+        }
+
         return normalize_local_url($imageUrl);
     }
 
-    return 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80';
+    return fallback_product_image('Peripheral Device');
 }
 
 function normalize_local_url(string $path): string
@@ -160,6 +169,50 @@ function normalize_local_url(string $path): string
     }
 
     return url($path);
+}
+
+function local_public_file(string $path): ?string
+{
+    if (preg_match('#^(https?:)?//#i', $path) === 1 || str_starts_with($path, 'data:')) {
+        return null;
+    }
+
+    $path = str_replace('\\', '/', $path);
+    if (preg_match('#/(assets|uploads)/(.+)$#', $path, $matches) !== 1) {
+        return null;
+    }
+
+    return dirname(__DIR__) . DIRECTORY_SEPARATOR . $matches[1] . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $matches[2]);
+}
+
+function svg_data_uri(string $svg): string
+{
+    return 'data:image/svg+xml;charset=UTF-8,' . rawurlencode($svg);
+}
+
+function fallback_product_image(string $source): string
+{
+    $label = pathinfo(parse_url($source, PHP_URL_PATH) ?: $source, PATHINFO_FILENAME);
+    $label = ucwords(str_replace(['-', '_'], ' ', $label ?: 'Peripheral Device'));
+    $label = e($label);
+    $svg = <<<SVG
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650" viewBox="0 0 900 650" role="img" aria-label="{$label}">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eef2ff"/>
+      <stop offset="100%" stop-color="#cffafe"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="650" rx="44" fill="url(#bg)"/>
+  <rect x="150" y="170" width="600" height="260" rx="42" fill="#ffffff" opacity="0.9"/>
+  <circle cx="450" cy="260" r="54" fill="#4f46e5"/>
+  <path d="M415 262h70M450 227v70" stroke="#ffffff" stroke-width="18" stroke-linecap="round"/>
+  <text x="450" y="372" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="900" fill="#0f172a">{$label}</text>
+  <text x="450" y="414" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#64748b">Product image fallback</text>
+</svg>
+SVG;
+
+    return svg_data_uri($svg);
 }
 
 function get_categories(?int $limit = null): array
