@@ -3,6 +3,7 @@
 Peripheral Inventory Management System is a PHP and MySQL based web application for managing computer laboratory devices. It can be used to track peripherals such as keyboards, mice, monitors, printers, scanners, microphones, speakers, projectors, and other accessories.
 
 The system also includes a simple shopping feature where users can browse products, add items to cart, place orders, and generate invoices.
+Live Link : https://peirpheral.infinityfreeapp.com/
 
 ## Features
 
@@ -137,17 +138,18 @@ Example POST request:
 ## Folder Structure
 
 ```text
-admin/       Admin dashboard, inventory CRUD, orders, and messages
-api/         JSON API files
-assets/      CSS, JavaScript, and images
-auth/        Login, registration, and logout
-cart/        Cart page and cart actions
-checkout/    Checkout and invoice pages
-config/      Database connection files
-database/    Database schema and seed files
-includes/    Shared functions, header, footer, and product card
-orders/      Customer order history
-uploads/     Uploaded device images
+Peripheral IMS/
+├── admin/        # Admin dashboard, inventory management, orders, messages
+├── api/          # JSON API endpoints for products, categories, cart
+├── assets/       # CSS, JavaScript, images
+├── auth/         # User login, registration, logout
+├── cart/         # Cart page and cart actions
+├── checkout/     # Checkout and invoice pages
+├── config/       # Database connection and configuration
+├── database/     # Database schema and seed files
+├── includes/     # Shared functions, header, footer, product cards
+├── orders/       # Customer order history
+└── uploads/      # Uploaded product images
 ```
 
 ## Hosting Notes
